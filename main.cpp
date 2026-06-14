@@ -30,6 +30,27 @@ bool taskToJson(const Task& param) {
     return true;
 }
 
+Task jsonToTask(std::string& newFile) {
+    std::ifstream extraction(newFile);
+    std::string line;
+    Task newTask;
+
+    if (!extraction.is_open) {
+        std::cerr << "Cannot open file to read" << std::endl;
+    } 
+
+    while (std::getline(extraction, line)) {{
+            newTask.id = std::stoi(line);
+            newTask.description = line;
+            newTask.status = line;
+            newTask.createdAt = line;
+            newTask.updatedAt = line;
+        }
+    }
+
+}
+
+
 int main(int argc, char* argv[]) {
     if (argc < 2) {
         throw std::runtime_error("Must have atleast 3 args");
