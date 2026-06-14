@@ -1,6 +1,9 @@
 #include <iostream>
 
 int main(int argc, char* argv[]) {
+    if (argc < 3) {
+        throw std::runtime_error("must have atleast two args");
+    }
     std::cout << "Received " << argc << " arguments:\n";
 
     for (int i = 0; i < argc; i++) {
