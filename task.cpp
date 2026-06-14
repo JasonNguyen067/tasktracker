@@ -3,23 +3,23 @@
 
 int id = 1;
 
-Task createTask(std::string description) {
-    Task task;
-
-    task.id = idIncrementor();
-    task.description = description;
-    
-    return task;
-}
-
-Task updateTask(Task& Task, std::string description) {
-    
-}
-
-std::string printTask(Task Task) {
-
-}
-
 int idIncrementor() {
    return id++;
+}
+
+Task createTask(std::string description) {
+    Task newTask;
+
+    newTask.id = idIncrementor();
+    newTask.description = description;
+    
+    return newTask;
+}
+
+void updateTask(Task& currentTask, std::string description) {
+    currentTask.description = description;
+}
+
+void printTask(Task& currentTask) {
+    std::cout << currentTask.description << std::endl;
 }
