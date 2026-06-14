@@ -2,47 +2,47 @@
 #include <stdexcept>
 #include <fstream>
 #include <string>
+#include "task.h"
 
-bool writeToFile(const std::string& filename) {
-    std::ofstream outFile(filename);
+bool taskToJson(const Task& param) {
+    std::ofstream outFile("tasks.json");
 
     if (!outFile.is_open()) {
-        std::cerr << "file is not open" << std::endl;
+        std::cerr << "Could not create the file" << std::endl;
         return false;
-    } else {
-        std::cout << "file is open" << std::endl;
     }
 
-    outFile << "I'm writing to you" << std::endl;
+    int firstLine = param.id;
+    std::string secondLine = param.description;
+    std::string thirdLine = param.status;
+    std::string fourthLine = param.createdAt;
+    std::string fifthLine = param.updatedAt;
 
-    outFile.close();
-    std::ifstream inFile("tasks.json");
 
-    std::string line;
-    while (std::getline(inFile, line)) {
-        std::cout << line << std::endl;
-    }
-    
-    inFile.close();
+    outFile << firstLine << std::endl;
+    outFile << secondLine << std::endl;
+    outFile << thirdLine << std::endl;
+    outFile << fourthLine << std::endl;
+    outFile << fifthLine << std::endl;
 
+    return true;
 }
 
 int main(int argc, char* argv[]) {
     if (argc < 3) {
-        throw std::runtime_error("must have atleast two args");
+        throw std::runtime_error("Must have atleast 3 args");
     }
 
     std::cout << "Received " << argc << " arguments:\n";
 
-    for (int i = 0; i < argc; i++) {
-        std::cout << "argv[" << i << "] " << argv[i] << std::endl;
-    }
-
     std::string command = argv[1];
     std::string identifer = argv[2];
+    std::string description = argv[3];
 
     if (command == "add") {
-        std::cout << "add command recognized" << std::endl;
+        Task newFile = createTask(description);
+        taskToJson(newFile);
+
     } else if (command == "list") {
         std::cout << "list command recognized" << std::endl;
     } else if (command == "update") {
