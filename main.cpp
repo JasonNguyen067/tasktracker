@@ -13,8 +13,18 @@ bool writeToFile(const std::string& filename) {
         std::cout << "file is open" << std::endl;
     }
 
+    outFile << "I'm writing to you" << std::endl;
+
     outFile.close();
-    return true;
+    std::ifstream inFile("tasks.json");
+
+    std::string line;
+    while (std::getline(inFile, line)) {
+        std::cout << line << std::endl;
+    }
+    
+    inFile.close();
+
 }
 
 int main(int argc, char* argv[]) {
@@ -44,4 +54,7 @@ int main(int argc, char* argv[]) {
     } else if (command == "mark-in-progress") {
         std::cout << "mark-in-progress command recognized" << std::endl;
     }
+
+    
+    writeToFile("tasks.json");
 }
