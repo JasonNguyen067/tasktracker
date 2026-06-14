@@ -1,10 +1,27 @@
 #include <iostream>
 #include <stdexcept>
+#include <fstream>
+#include <string>
+
+bool writeToFile(const std::string& filename) {
+    std::ofstream outFile(filename);
+
+    if (!outFile.is_open()) {
+        std::cerr << "file is not open" << std::endl;
+        return false;
+    } else {
+        std::cout << "file is open" << std::endl;
+    }
+
+    outFile.close();
+    return true;
+}
 
 int main(int argc, char* argv[]) {
     if (argc < 3) {
         throw std::runtime_error("must have atleast two args");
     }
+
     std::cout << "Received " << argc << " arguments:\n";
 
     for (int i = 0; i < argc; i++) {
@@ -12,6 +29,7 @@ int main(int argc, char* argv[]) {
     }
 
     std::string command = argv[1];
+    std::string identifer = argv[2];
 
     if (command == "add") {
         std::cout << "add command recognized" << std::endl;
@@ -26,6 +44,4 @@ int main(int argc, char* argv[]) {
     } else if (command == "mark-in-progress") {
         std::cout << "mark-in-progress command recognized" << std::endl;
     }
-
-
 }
