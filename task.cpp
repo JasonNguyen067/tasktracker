@@ -1,5 +1,7 @@
 #include <iostream>
 #include "task.h"
+#include <fstream>
+#include <vector>
 
 int id = 1;
 
@@ -29,4 +31,31 @@ void printTask(Task& currentTask) {
     std::cout << currentTask.status << std::endl;
     std::cout << currentTask.createdAt << std::endl;
     std::cout << currentTask.updatedAt << std::endl;
+}
+
+Task jsonToTask() {
+    std::ifstream extraction("tasks.json");
+    std::vector<Task> tasks;
+    Task currentTask;
+    int fieldIndex = 0;
+    std::string line;
+    std::string dummy;
+
+    while (std::getline(extraction, line)) {
+        if (line == "[" || line == "]") {
+            std::getline(extraction, dummy);
+        } else if (line == "{") {
+            fieldIndex = 0;
+        } else if (line == "}" || line == "},") {
+            continue;
+        } else {
+            while (std::getline(extraction, line)) {
+               if (line == "}" || line == "},") {
+                continue;
+               }
+               
+            }
+        }
+
+    }
 }
